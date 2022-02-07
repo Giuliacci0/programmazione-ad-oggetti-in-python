@@ -1,5 +1,4 @@
 #classe e istanza - stampa leggibile str
-#provaaa
 import weakref
 class Book:
     books =[]
