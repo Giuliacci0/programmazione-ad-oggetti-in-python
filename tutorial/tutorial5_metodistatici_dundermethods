@@ -1,19 +1,30 @@
-#metodo alt ad init per instanziare oggetti, costruttore alternativo
+#METODI STATICI
+#funzioni nella classe perché hanno correlazione con essa ma non ne sono dirett collegati
+#non serve oggetto per richiamarli
+#restit info sul codice
 class Persona:
-
+    
     def __init__(self, nome, cognome, età, residenza):
         self.nome = nome
         self.cognome = cognome
         self.età = età
         self.residenza = residenza
         
-    #METODO DI CLASSE -non passa self ma classe
-    @classmethod #decoratore
+    @staticmethod
+    def info_prog(): #non passa nè class nè self
+        info = """
+        Nome: Persona
+        Creato da PYMyke
+        Sito: www.programmareinpython.it
+        Commenti: 
+        Linguaggi: Python"""
+        return info
+    
+    @classmethod 
     def from_string (cls, stringa_persona, *args):
         nome, cognome, età, residenza = stringa_persona.split("-")
         return cls(nome, cognome, età, residenza, *args)
     
-#metodo che cambia comportamento in base alla sottoclasse
     @classmethod
     def occupazione(cls):
         if cls.__name__ == "Studente":
@@ -51,6 +62,12 @@ class Studente(Persona):
     def __init__(self, nome, cognome, età, residenza, corso_di_studio):
         super().__init__(nome, cognome, età, residenza)
         self.corso_di_studio = corso_di_studio
+        
+#DUNDER METHODS
+#metodi predefiniti, non chiamati direttamente da noi
+#per es unire dati di più studenti
+    def __add__ (self, other):
+        return self.nome + " " + other.cognome
 
     def scheda_personale(self):
         scheda = f"""
@@ -63,40 +80,26 @@ class Studente(Persona):
         self.corso_di_studio = corso
         print("Corso Aggiornato")
         
-class Insegnante(Persona):
-    profilo = "Insegnante"
+#DUNDER STR
+#per rappresentazione oggetti leggibile
+    def __str__(self):
+        return f"Lo studente {self.nome} {self.cognome} studia {self.corso_di_studio}"
 
-    def __init__(self, nome, cognome, età, residenza, materie=None):
-        super().__init__(nome, cognome, età, residenza)
-        if materie is None:
-            self.materie = []
-        else:
-            self.materie = materie
-
-    def scheda_personale(self):
-        scheda = f"""
-        Profilo:{Insegnante.profilo}
-        Materie Insegnate:{self.materie}
-        ***"""
-        return super().scheda_personale() + scheda
-
-    def aggiungi_materia(self, nuova):
-        if nuova not in self.materie:
-            self.materie.append(nuova)
-        print("Elenco Materie Aggiornato")
+#DUNDER REPR
+#esaustivo e non ambiguo, permette di ricreare oggetto da stringa che restituisce
+    def __repr__(self):
+        return f"Studente('{self.nome}', '{self.cognome}', {self.età}, '{self.residenza}', '{self.corso_di_studio}')"
         
-iron_man = "Tony-Stark-40-Stark Tower"
-persona_uno = Persona.from_string(iron_man)
-print(persona_uno.scheda_personale())
+#si può accedere a METODO STATICO senza aver creato nessun oggetto
+print(Persona.info_prog())
 
-#anche sottoclassi ereditano
-#sottoclasse ha più parametri in init, perciò aggiungere *args in classmethod
-ins_uno = Insegnante.from_string(iron_man, "Ingegneria")
 
-pk = "Paolino-Paperino-30-13 Quack Street"
-stud1 = Studente.from_string(pk, "Python")
-print(ins_uno.scheda_personale())
-print(stud1.scheda_personale())
+""""""""""""""""""""
 
-print(ins_uno.occupazione())
-print(f"{stud1.nome} {stud1.cognome} è uno {stud1.occupazione()}")
+stud1 = Studente("Peter", "Malkovich", 55, "Parigi", "Psicologia")
+stud2 = Studente("John","Parker", 18, "New York", "Fisica")
+print(stud1 + stud2)
+print(stud2 + stud1)
+print(stud1) #senza str solo info
+#o print(str(stud1))
+print(repr(stud2)) #raprresentazione repr perette di ricreare oggetto
