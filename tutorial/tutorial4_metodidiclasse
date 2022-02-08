@@ -13,7 +13,7 @@ class Persona:
         nome, cognome, età, residenza = stringa_persona.split("-")
         return cls(nome, cognome, età, residenza, *args)
     
-#metodo che cambia comportamento in base alla sottoclasse
+    #metodo che cambia comportamento in base alla sottoclasse
     @classmethod
     def occupazione(cls):
         if cls.__name__ == "Studente":

@@ -63,9 +63,9 @@ class Studente(Persona):
         super().__init__(nome, cognome, età, residenza)
         self.corso_di_studio = corso_di_studio
         
-#DUNDER METHODS
-#metodi predefiniti, non chiamati direttamente da noi
-#per es unire dati di più studenti
+    #DUNDER METHODS
+    #metodi predefiniti, non chiamati direttamente da noi
+    #per es unire dati di più studenti
     def __add__ (self, other):
         return self.nome + " " + other.cognome
 
@@ -80,13 +80,13 @@ class Studente(Persona):
         self.corso_di_studio = corso
         print("Corso Aggiornato")
         
-#DUNDER STR
-#per rappresentazione oggetti leggibile
+    #DUNDER STR
+    #per rappresentazione oggetti leggibile
     def __str__(self):
         return f"Lo studente {self.nome} {self.cognome} studia {self.corso_di_studio}"
 
-#DUNDER REPR
-#esaustivo e non ambiguo, permette di ricreare oggetto da stringa che restituisce
+    #DUNDER REPR
+    #esaustivo e non ambiguo, permette di ricreare oggetto da stringa che restituisce
     def __repr__(self):
         return f"Studente('{self.nome}', '{self.cognome}', {self.età}, '{self.residenza}', '{self.corso_di_studio}')"
         
@@ -100,3 +100,4 @@ print(stud2 + stud1)
 print(stud1) #senza str solo info
 #o print(str(stud1))
 print(repr(stud2)) #raprresentazione repr perette di ricreare oggetto
+
