@@ -93,9 +93,6 @@ class Studente(Persona):
 #si può accedere a METODO STATICO senza aver creato nessun oggetto
 print(Persona.info_prog())
 
-
-""""""""""""""""""""
-
 stud1 = Studente("Peter", "Malkovich", 55, "Parigi", "Psicologia")
 stud2 = Studente("John","Parker", 18, "New York", "Fisica")
 print(stud1 + stud2)
